@@ -1,8 +1,9 @@
-package com.adrian.kotlin_gradle_example.main
+package com.adrian.kotlin_gradle_example.base
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import com.adrian.kotlin_gradle_example.R
+import com.adrian.kotlin_gradle_example.main.MainFragment
 import dagger.android.AndroidInjection
 import dagger.android.support.DaggerAppCompatActivity
 
@@ -25,7 +26,9 @@ class MainActivity : DaggerAppCompatActivity() {
     private fun addFragment() {
         val manager = supportFragmentManager
         val transaction = manager.beginTransaction()
-        transaction.add(R.id.container, MainFragment.newInstance())
+        transaction.add(R.id.container,
+            MainFragment.newInstance()
+        )
         transaction.commit()
     }
 }

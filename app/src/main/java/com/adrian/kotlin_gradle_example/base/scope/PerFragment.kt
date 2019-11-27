@@ -1,4 +1,4 @@
-package com.adrian.kotlin_gradle_example.main.di.scope
+package com.adrian.kotlin_gradle_example.base.scope
 
 import javax.inject.Scope
 

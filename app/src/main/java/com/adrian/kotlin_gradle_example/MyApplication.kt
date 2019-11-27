@@ -1,6 +1,6 @@
 package com.adrian.kotlin_gradle_example
 
-import com.adrian.kotlin_gradle_example.main.di.DaggerApplicationComponent
+import com.adrian.kotlin_gradle_example.base.di.module.DaggerApplicationComponent
 import com.facebook.stetho.Stetho
 import com.jakewharton.threetenabp.AndroidThreeTen
 import dagger.android.AndroidInjector

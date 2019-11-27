@@ -1,8 +1,6 @@
-package com.adrian.kotlin_gradle_example.main.di
+package com.adrian.kotlin_gradle_example.base.di.module
 
 import com.adrian.kotlin_gradle_example.MyApplication
-import com.adrian.kotlin_gradle_example.main.di.module.ActivityBuilderModule
-import com.adrian.kotlin_gradle_example.main.di.module.AppModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector

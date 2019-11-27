@@ -1,7 +1,7 @@
-package com.adrian.kotlin_gradle_example.main.di.module
+package com.adrian.kotlin_gradle_example.base.di.module
 
-import com.adrian.kotlin_gradle_example.main.MainActivity
-import com.adrian.kotlin_gradle_example.main.di.scope.PerActivity
+import com.adrian.kotlin_gradle_example.base.MainActivity
+import com.adrian.kotlin_gradle_example.base.scope.PerActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -12,7 +12,6 @@ abstract class ActivityBuilderModule {
     @ContributesAndroidInjector(
         modules = [
             FragmentBuilderModule::class
-//            MainModule::class,
 //            DashboardFragmentBuilderModule::class
 //            Feature2FragmentBuilderModule::class
         ]
