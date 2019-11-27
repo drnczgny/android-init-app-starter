@@ -10,7 +10,10 @@ import com.adrian.kotlin_gradle_example.R
 import com.adrian.kotlin_gradle_example.base.BaseFragment
 import com.adrian.kotlin_gradle_example.main.viewmodel.MainViewModel
 import com.adrian.kotlin_gradle_example.main.viewmodel.MainViewModelFactory
+import com.adrian.kotlin_gradle_example.navigator.Navigator
+import com.adrian.kotlin_gradle_example.navigator.screen.SecondScreen
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.fragment_main.*
 import javax.inject.Inject
 
 class MainFragment : BaseFragment() {
@@ -22,6 +25,9 @@ class MainFragment : BaseFragment() {
     @Inject
     lateinit var mainViewModelFactory: MainViewModelFactory
 
+    @Inject
+    lateinit var navigator: Navigator
+
     lateinit var homeViewModel : MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +35,7 @@ class MainFragment : BaseFragment() {
 
          homeViewModel =
             ViewModelProviders.of(this, mainViewModelFactory).get(MainViewModel::class.java)
+
     }
 
     override fun onCreateView(
@@ -43,6 +50,10 @@ class MainFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         homeViewModel.test()
+
+        secondScreenButton.setOnClickListener {
+            navigator.navigateTo(SecondScreen())
+        }
     }
 
     override fun onAttach(context: Context) {

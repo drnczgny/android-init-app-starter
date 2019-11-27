@@ -1,19 +1,42 @@
 package com.adrian.kotlin_gradle_example.navigator
 
 import com.adrian.kotlin_gradle_example.base.BaseScreen
+import io.reactivex.Flowable
+import io.reactivex.processors.BehaviorProcessor
+import io.reactivex.processors.FlowableProcessor
+import timber.log.Timber
 
 class DefaultNavigator : Navigator {
 
+    private val navigationProcessor: FlowableProcessor<BaseScreen> = BehaviorProcessor.create()
+
+//    private val screeMap = HashMap<>
+
     override fun navigateTo(screen: BaseScreen) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Timber.d("Navigate to ${screen.javaClass.simpleName}")
+
+        navigationProcessor.onNext(screen)
+
+//        when (screen) {
+//            is MainScreen -> {
+//                navigationProcessor.onNext(screen)
+//            }
+//            is SecondScreen -> {
+//                navigationProcessor.onNext(screen)
+//            }
+//            else -> {
+//                throw IllegalStateException("Wrong case...!!!")
+//            }
+//        }
     }
 
     override fun navigateBack() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Timber.d("Navigate back")
     }
 
     override fun navigateToHome() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Timber.d("Navigate home")
     }
 
+    override fun getNavigator(): Flowable<BaseScreen> = navigationProcessor
 }

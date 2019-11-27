@@ -16,6 +16,6 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideDefaultNavigator(navigator: Navigator) = DefaultNavigator()
+    fun provideDefaultNavigator(): Navigator = DefaultNavigator()
 
 }

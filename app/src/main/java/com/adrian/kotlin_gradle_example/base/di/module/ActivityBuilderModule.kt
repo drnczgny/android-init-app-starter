@@ -1,6 +1,6 @@
 package com.adrian.kotlin_gradle_example.base.di.module
 
-import com.adrian.kotlin_gradle_example.base.MainActivity
+import com.adrian.kotlin_gradle_example.base.RootActivity
 import com.adrian.kotlin_gradle_example.base.scope.PerActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -17,5 +17,5 @@ abstract class ActivityBuilderModule {
         ]
     )
 
-    abstract fun bindMainActivity(): MainActivity
+    abstract fun bindMainActivity(): RootActivity
 }

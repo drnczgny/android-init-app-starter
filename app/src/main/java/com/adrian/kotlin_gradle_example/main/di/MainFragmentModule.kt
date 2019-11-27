@@ -11,7 +11,7 @@ class MainFragmentModule {
 
     @Provides
     @PerFragment
-    fun provideMainViewModeFactory(): MainViewModelFactory {
-        return MainViewModelFactory()
+    fun provideMainViewModeFactory(navigator: Navigator): MainViewModelFactory {
+        return MainViewModelFactory(navigator)
     }
 }
