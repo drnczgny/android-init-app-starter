@@ -8,33 +8,33 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import com.adrian.kotlin_gradle_example.R
 import com.adrian.kotlin_gradle_example.base.BaseFragment
-import com.adrian.kotlin_gradle_example.main.viewmodel.MainViewModel
-import com.adrian.kotlin_gradle_example.main.viewmodel.MainViewModelFactory
+import com.adrian.kotlin_gradle_example.main.viewmodel.HomeScreenViewModel
+import com.adrian.kotlin_gradle_example.main.viewmodel.HomeScreeViewModelFactory
 import com.adrian.kotlin_gradle_example.navigator.Navigator
 import com.adrian.kotlin_gradle_example.navigator.screen.SecondScreen
 import dagger.android.support.AndroidSupportInjection
-import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.fragment_home_screen.*
 import javax.inject.Inject
 
-class MainFragment : BaseFragment() {
+class HomeScreenFragment : BaseFragment() {
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = HomeScreenFragment()
     }
 
     @Inject
-    lateinit var mainViewModelFactory: MainViewModelFactory
+    lateinit var homeScreeViewModelFactory: HomeScreeViewModelFactory
 
     @Inject
     lateinit var navigator: Navigator
 
-    lateinit var homeViewModel : MainViewModel
+    lateinit var homeScreenViewModel : HomeScreenViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-         homeViewModel =
-            ViewModelProviders.of(this, mainViewModelFactory).get(MainViewModel::class.java)
+         homeScreenViewModel =
+            ViewModelProviders.of(this, homeScreeViewModelFactory).get(HomeScreenViewModel::class.java)
 
     }
 
@@ -43,13 +43,13 @@ class MainFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false)
+        return inflater.inflate(R.layout.fragment_home_screen, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        homeViewModel.test()
+        homeScreenViewModel.test()
 
         secondScreenButton.setOnClickListener {
             navigator.navigateTo(SecondScreen())

@@ -4,7 +4,8 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.adrian.kotlin_gradle_example.R
-import com.adrian.kotlin_gradle_example.main.MainFragment
+import com.adrian.kotlin_gradle_example.main.HomeScreenFragment
+import com.adrian.kotlin_gradle_example.navigator.NavigationEventType.*
 import com.adrian.kotlin_gradle_example.navigator.Navigator
 import com.adrian.kotlin_gradle_example.navigator.screen.MainScreen
 import com.adrian.kotlin_gradle_example.navigator.screen.SecondScreen
@@ -15,42 +16,41 @@ import timber.log.Timber
 import javax.inject.Inject
 import kotlin.reflect.KClass
 
-
 class RootActivity : BaseActivity() {
-
 
     @Inject
     lateinit var navigator: Navigator
 
-    val screenMap = mapOf<KClass<out BaseScreen>, Fragment>(
-        MainScreen::class to MainFragment.newInstance(),
-        SecondScreen::class to SecondScreenFragment.newInstance()
-    )
+    private val screenMap = createScreenMap()
 
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
-
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
 
-        navigator.navigateTo(MainScreen())
-
         registerObservers()
+
+        navigator.navigateTo(MainScreen())
 
     }
 
     private fun registerObservers() {
         navigator.getNavigator()
-            .doOnNext { Timber.e("doOnNext") }
-            .doOnComplete { Timber.e("doOnComplete") }
-            .doOnError { Timber.e("doOnError") }
-            .doOnSubscribe { Timber.e("doOnSubscribe") }
-            .subscribe { screen -> navigateToFragment(screen) }
+            .doOnNext { Timber.d("doOnNext") }
+            .doOnComplete { Timber.d("doOnComplete") }
+            .doOnError { Timber.d("doOnError") }
+            .doOnSubscribe { Timber.d("doOnSubscribe") }
+            .subscribe { navigationEvent ->
+                when (navigationEvent.type) {
+                    FORWARD -> navigateToFragment(navigationEvent.targetScreen!!)
+                    BACK -> navigateBack()
+                    HOME -> navigateHome()
+                }
+            }
             .addTo(disposables)
     }
-
 
     private fun navigateToFragment(screen: BaseScreen) {
 
@@ -64,8 +64,8 @@ class RootActivity : BaseActivity() {
         val manager = supportFragmentManager
         val transaction = manager.beginTransaction()
         transaction
-            .replace(R.id.container, fragment)
-            .addToBackStack("323")
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(screenName)
             .commit()
     }
 
@@ -78,4 +78,16 @@ class RootActivity : BaseActivity() {
         }
     }
 
+    private fun navigateHome() {
+        val  fm = supportFragmentManager
+        (0 until fm.backStackEntryCount)
+            .forEach { _ -> fm.popBackStack(); }
+    }
+
+    private fun createScreenMap(): Map<KClass<out BaseScreen>, Fragment> {
+        return mapOf<KClass<out BaseScreen>, Fragment>(
+            MainScreen::class to HomeScreenFragment.newInstance(),
+            SecondScreen::class to SecondScreenFragment.newInstance()
+        )
+    }
 }

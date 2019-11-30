@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='kotlin-dagger-starter'
+rootProject.name='android-init-app-starter'

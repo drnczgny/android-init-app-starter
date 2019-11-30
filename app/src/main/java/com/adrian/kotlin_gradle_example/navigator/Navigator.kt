@@ -11,5 +11,5 @@ interface Navigator {
 
     fun navigateToHome()
 
-    fun getNavigator(): Flowable<BaseScreen>
+    fun getNavigator(): Flowable<NavigationEvent>
 }

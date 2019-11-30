@@ -4,10 +4,5 @@ import com.adrian.kotlin_gradle_example.base.BaseScreen
 
 class MainScreen : BaseScreen() {
 
-    companion object {
 
-         fun getClass() {
-            this.javaClass
-        }
-    }
 }
